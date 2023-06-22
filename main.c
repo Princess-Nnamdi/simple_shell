@@ -1,4 +1,4 @@
-iii#include "main.h"
+#include "main.h"
 
 /**
  * main- Entry point
@@ -34,7 +34,7 @@ int main(int ac, char **argv)
 		}
 		strcpy(lineptr_dup, lineptr);
 		parse = strtok(lineptr, sep);
-		while (parse != NULL);
+		while (parse != NULL)
 		{
 			n_parse++;
 			parse = strtok(NULL, sep);
@@ -42,7 +42,14 @@ int main(int ac, char **argv)
 		n_parse++;
 		argv = malloc(sizeof(char *) * string);
 		parse = strtok(lineptr_dup, sep);
-		printf("%s", lineptr);
+		for (i = 0; parse != NULL; i++)
+		{
+			argv[i] = malloc(sizeof(char) * strlen(parse));
+			strcpy(argv[i], parse);
+			parse = strtok(NULL, sep);
+		}
+		argv[i] = NULL;
+		printf("%s\n", lineptr);
 		free(lineptr);
 	}
 	return (0);
