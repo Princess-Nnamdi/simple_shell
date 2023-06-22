@@ -6,13 +6,13 @@
  */
 void executes_command(char **argv)
 {
-	char *cmd = NULL;
+	char *cmd = NULL, *cmds = NULL;
 
 	if (argv != NULL)
 		cmd = argv[0];
-	get_path(cmd);
+	cmds = get_path(cmd);
 
-	if (execve(cmd, argv, NULL) == -1)
+	if (execve(cmds, argv, NULL) == -1)
 	{
 		perror("Execve Error");
 	}

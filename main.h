@@ -12,5 +12,6 @@
 int main(int ac, char **argv);
 void executes_command(char **argv);
 char *get_path(char *cmd);
+int chill(void);
 
 #endif
