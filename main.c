@@ -41,7 +41,6 @@ int main(int ac __attribute__((unused)), char **argv)
 			parse = strtok(NULL, sep);
 		}
 		argv[i] = NULL;
-		chill();
 		executes_command(argv);
 		free(dup), free(ptr);
 	}

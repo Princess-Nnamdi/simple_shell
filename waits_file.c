@@ -18,7 +18,7 @@ int chill(void)
 	}
 	if (kid == 0)
 	{
-		printf("Kid process\n");
+		printf("Kid process");
 		exit(0);
 	}
 	else
