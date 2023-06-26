@@ -16,10 +16,15 @@ int main(int ac __attribute__((unused)), char **argv)
 	{
 		printf("%s", shell_prompt);
 		strd = getline(&ptr, &n, stdin);
-		if (strd == -1)
+		if ((strd == -1) || strcmp(ptr, "exit\n") == 0)
 		{
 			printf("Disconnected...\n");
-			return (-1);
+			exit (0);
+		}
+		if (strcmp(ptr, "env\n") == 0)
+		{
+			environment();
+			continue;
 		}
 		dup = malloc(sizeof(char) * strd);
 		if (dup == NULL)
@@ -42,7 +47,7 @@ int main(int ac __attribute__((unused)), char **argv)
 		}
 		argv[i] = NULL;
 		executes_command(argv);
-		free(dup), free(ptr);
+		free(dup);
 	}
 	return (0);
 }

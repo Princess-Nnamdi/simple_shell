@@ -13,5 +13,6 @@ int main(int ac, char **argv);
 int executes_command(char **argv);
 char *get_path(char *cmd);
 int chill(void);
+void environment(void);
 
 #endif

@@ -8,7 +8,7 @@
 int executes_command(char **argv)
 {
 	pid_t kid;
-	
+
 	char *cmd = NULL, *cmds = NULL;
 	char *envp[] = {(char *) "PATH=/bin", 0};
 
