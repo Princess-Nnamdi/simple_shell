@@ -17,6 +17,6 @@ int executes_command(char **argv);
 char *get_path(char *cmd);
 int chill(void);
 void environment(void);
-ssize_t *_getline(char **ptr, size_t *n);
+ssize_t _getline(char **ptr, size_t *n);
 
 #endif

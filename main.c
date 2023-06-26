@@ -1,12 +1,8 @@
 #include "main.h"
 /**
- * main- Entry point
- * @ac: the number of arguements passed
- * @argv: vector of arguements
- * @env: prints the environment
- * Return: 0 on success
+ * free_buffer- frees the buffer space
+ * @arg: the arguement
  **/
-
 void free_buffer(char **arg)
 {
 	int var = 0;
@@ -15,6 +11,13 @@ void free_buffer(char **arg)
 		free(arg[var++]);
 	free(arg);
 }
+/**
+ * main- Entry point
+ * @ac: the number of arguements passed
+ * @argv: vector of arguements
+ * @env: prints the environment
+ * Return: 0 on success
+ **/
 int main(int ac __attribute__((unused)), char **argv, char **env)
 {
 	char *shell_prompt = "MPshell@@ ", *ptr = NULL, *dup = NULL, *sep = " \n", *parse;
