@@ -43,12 +43,12 @@ int main(int ac __attribute__((unused)), char **argv, char **env)
 		argv[i] = NULL;
 		if (strcmp(argv[0], "env") == 0)
 		{
-		for (; env[j] != NULL; j++)
-                printf("%s\n", env[j]);
+			for (; env[j] != NULL; j++)
+        	        printf("%s\n", env[j]);
 		}
 		else
-		executes_command(argv);
-		free(dup), free(argv), free(ptr);
+			executes_command(argv);
 	}
+	free(dup), free(ptr), free(argv);
 	return (0);
 }
