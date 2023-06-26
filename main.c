@@ -24,7 +24,8 @@ int main(int ac __attribute__((unused)), char **argv, char **env)
 
 	while (1)
 	{
-		printf("%s", shell_prompt);
+		if (isatty(STDIN_FILENO))
+			printf("%s", shell_prompt);
 		strd = getline(&ptr, &n, stdin);
 		if ((strd == -1) || strcmp(ptr, "exit\n") == 0)
 			break;
