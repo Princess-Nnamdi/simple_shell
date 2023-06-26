@@ -6,22 +6,28 @@
  * @env: prints the environment
  * Return: 0 on success
  **/
+
+void free_buffer(char **arg)
+{
+	int var = 0;
+
+	while (arg[var] != NULL)
+		free(arg[var++]);
+	free(arg);
+}
 int main(int ac __attribute__((unused)), char **argv, char **env)
 {
-	char *shell_prompt = "MPshell@@ ", *ptr, *dup = NULL, *sep = " \n", *parse;
+	char *shell_prompt = "MPshell@@ ", *ptr = NULL, *dup = NULL, *sep = " \n", *parse;
 	size_t n = 0;
-	ssize_t strd;
+	ssize_t strd = 0;
 	int n_parse = 0, i, j = 0;
-	
+
 	while (1)
 	{
 		printf("%s", shell_prompt);
 		strd = getline(&ptr, &n, stdin);
 		if ((strd == -1) || strcmp(ptr, "exit\n") == 0)
-		{
-			printf("Disconnected...\n");
-			exit(0);
-		}
+			break;
 		dup = malloc(sizeof(char) * (strd + 1));
 		if (dup == NULL)
 		{
@@ -44,11 +50,14 @@ int main(int ac __attribute__((unused)), char **argv, char **env)
 		if (strcmp(argv[0], "env") == 0)
 		{
 			for (; env[j] != NULL; j++)
-        	        printf("%s\n", env[j]);
+				printf("%s\n", env[j]);
 		}
 		else
 			executes_command(argv);
+		free(dup);
+		free_buffer(argv);
 	}
-	free(dup), free(ptr), free(argv);
+	if (ptr)
+		free(ptr);
 	return (0);
 }
