@@ -18,5 +18,6 @@ char *get_path(char *cmd);
 int chill(void);
 void environment(void);
 ssize_t _getline(char **ptr, size_t *n);
+int _chdir(char *dir);
 
 #endif
