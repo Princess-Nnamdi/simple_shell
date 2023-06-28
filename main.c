@@ -18,6 +18,7 @@ void free_buffer(char **arg)
  * @env: prints the environment
  * Return: 0 on success
  **/
+int exit_status = 0; 
 int main(int ac __attribute__((unused)), char **argv, char **env)
 {
 	char *shell_prompt = "MPshell@@ ", *ptr = NULL, *dup = NULL, *sep = " \n", *parse;
