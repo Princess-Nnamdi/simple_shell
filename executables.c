@@ -1,6 +1,36 @@
 #include "main.h"
 
 /**
+ * _setenv - sets a new or modify an existing variable
+ * @var: variable to be set
+ * @val: value of the set variable
+ * Return: 0 on success or -1 on failure
+ */
+
+int _setenv(char *var, char *val)
+{
+	if (setenv(var, val, 1) == -1)
+	{
+		perror("setenv Error");
+		return (-1);
+	}
+	return (0);
+}
+/**
+ * _unsetenv - unsets a new variable or modify an existing one
+ * @var: variable to be set
+ * Return: 0 on success or -1 on failure
+ */
+int _unsetenv(char *var)
+{
+	if (unsetenv(var) == -1)
+	{
+		perror("unsetenv Error");
+		return (-1);
+	}
+	return (0);
+}
+/**
  * executes_command - allows unix commands work in shell
  * @argv: array of arguements
  * Return: 0
@@ -35,6 +65,24 @@ int executes_command(char **argv)
 		}
 		else
 			return (_chdir(argv[1]));
+	}
+	else if (strcmp(argv[0], "setenv") == 0)
+	{
+		if (argv[1] == NULL || argv[2] == NULL)
+		{
+			write(STDERR_FILENO, "setenv error: invalid argument\n", 32);
+			return (-1);
+		}
+		return (_setenv(argv[1], argv[2]));
+	}
+	else if (strcmp(argv[0], "unsetenv") == 0)
+	{
+		if (argv[1] == NULL)
+		{
+			write(STDERR_FILENO, "unsetenv error: invalid argument\n", 33);
+			return (-1);
+		}
+		return (_unsetenv(argv[1]));
 	}
 	kid = fork();
 	if (kid == -1)
