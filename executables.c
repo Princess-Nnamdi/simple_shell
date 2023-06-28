@@ -9,10 +9,21 @@
 
 int _setenv(char *var, char *val)
 {
-	if (setenv(var, val, 1) == -1)
+	if (getenv(var) != NULL)
 	{
-		perror("setenv Error");
-		return (-1);
+		if (setenv(var, val, 1) == -1)
+		{
+			perror("setenv Error");
+			return (-1);
+		}
+	}
+	else
+	{
+		if (setenv(var, val, 1) == -1)
+		{
+			perror("setenv Error");
+			return (-1);
+		}
 	}
 	return (0);
 }
@@ -23,9 +34,17 @@ int _setenv(char *var, char *val)
  */
 int _unsetenv(char *var)
 {
-	if (unsetenv(var) == -1)
+	if (getenv(var) != NULL)
 	{
-		perror("unsetenv Error");
+		if (unsetenv(var) == -1)
+		{
+			perror("unsetenv Error");
+			return (-1);
+		}
+	}
+	else
+	{
+		write(STDERR_FILENO, "unsetenv error: unfound variable\n", 35);
 		return (-1);
 	}
 	return (0);
@@ -40,6 +59,7 @@ int executes_command(char **argv)
 	pid_t kid;
 	char *cmd = NULL, *cmds = NULL, *home = NULL, *oldpwd = NULL;
 	char *envp[] = {(char *) "PATH=/bin", 0};
+	int final, exit_status = 0;
 
 	if (strcmp(argv[0], "cd") == 0)
 	{
@@ -73,7 +93,9 @@ int executes_command(char **argv)
 			write(STDERR_FILENO, "setenv error: invalid argument\n", 32);
 			return (-1);
 		}
-		return (_setenv(argv[1], argv[2]));
+		final = (_setenv(argv[1], argv[2]));
+		if (final == 0)
+			return (final);
 	}
 	else if (strcmp(argv[0], "unsetenv") == 0)
 	{
@@ -83,6 +105,12 @@ int executes_command(char **argv)
 			return (-1);
 		}
 		return (_unsetenv(argv[1]));
+	}
+	else if (strcmp(argv[0], "exit") == 0)
+	{
+		if (argv[1] != NULL)
+			exit_status = atoi(argv[1]);
+		exit(exit_status);
 	}
 	kid = fork();
 	if (kid == -1)
